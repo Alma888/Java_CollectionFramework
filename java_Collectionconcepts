@@ -1,0 +1,39 @@
+# Java_CollectionFramework
+一、集合框架
+  1、定义
+            Java集合框架，又被称为容器，是定义在java.util 包下的一组接口和其
+         实现类。
+            它主要表现为将多个元素置于一个单元中，用于对这些元素进行快速、
+         便捷的存储、检索、管理、即就是我们说的增删改查。
+            例如：一个通讯录（一组姓名和电话的映射关系）、一副扑克牌（一组
+         牌的集合）等等。
+
+  2、集合框架的优点及作用
+           使用成熟的集合框架，有助于我们便捷、快速的写出高效、稳定的代码
+         学习背后的数据结构知识，有助于我们理解各个集合的优缺点及使用场景
+
+  3、Collection接口
+         Java中的集合主要分为value，key-value(Collection,Map)两种，存储
+         值分为List和Set，存储为key-value的是Map。
+     【1】Collection接口常用方法：
+           boolean add(Object o)  ：向集合中加入一个对象的引用e
+           void clear()：删除集合中所有的对象，即不再持有这些对象的引用
+           boolean isEmpty()    ：判断集合是否为空
+           boolean contains(Object o) ： 判断集合中是否持有特定对象的引用
+           Iterartor iterator()  ：返回一个实现了Iterator的对象，可以用来遍历集合中的元素
+           boolean remove(Object o) ：从集合中删除一个对象的引用o
+           int size()       ：返回集合中元素的数目
+           Object[] toArray()    ： 返回一个装有集合所有元素的数组
+           boolean equals(Object o)：判断值是否相等
+           int hashCode()： 返回当前集合的hash值，可以作为判断地址是否相等
+
+     【2】 Collection接口继承  Iterable<T> 接口，这个接口可以返回一个迭代
+           器，主要有以下3个方法：
+           1. default void forEach(Consumer<? super T> action);
+                     对Iterable的每个元素执行给定的操作，直到所有元素都被处理或动作引发异常.
+           2. Iterator<T> iterator();
+                     返回类型为 T元素的迭代器.
+           3. default Spliterator<T> spliterator();
+                     在Iterable描述的元素上创建一个Iterable.
+
+      List和Set接口都是继承自 Collection接口。
