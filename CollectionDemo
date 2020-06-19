@@ -1,0 +1,33 @@
+# Java_CollectionFramework
+
+package Collection;
+
+//Collection 接口示例
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+public class Demo {
+    public static void main(String[] args) {
+        Collection<String> list=new ArrayList<>();
+        System.out.println(list.size());//0
+        System.out.println(list.isEmpty());//true
+        list.add("I");
+        list.add("love");
+        list.add("Java");
+        System.out.println(list.size());//3
+        System.out.println(list.isEmpty());//false
+        Object[] objects=list.toArray();
+        System.out.println(Arrays.toString(objects));//[I,love,Java]
+        for(String s:list){
+            System.out.println(s);//I love Java
+        }
+        list.remove("love");
+        for(String s:list){
+            System.out.println(s);//I Java
+        }
+        list.clear();
+        System.out.println(list.size());//0
+        System.out.println(list.isEmpty());//true
+    }
+}
