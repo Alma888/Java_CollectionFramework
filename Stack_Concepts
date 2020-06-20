@@ -1,0 +1,82 @@
+# Java_CollectionFramework
+
+三、Stack
+     栈是我们常用的数据结构之一。在Java中Stack类表示先进后出（FILo）的对象堆栈。
+     每一个栈都包含一个栈顶，每次出栈是将栈顶的数据取出.
+
+     通过继承了Vector类，Stack类可以很容易的实现他本身的功能。因为大部分的功能在
+     Vector里面已经提供支持了。
+     Stack通过五个操作对Vector进行扩展：这个五个操作如下：
+          empty():判断堆栈是否为空。
+          peek():查看堆栈顶部的元素，但不取走。
+          pop():移除堆栈顶部的元素，并作为函数的值返回该元素。
+          push(E item):将item压入栈顶部。
+          search(Object o):返回元素对象o在堆栈中的位置，以1为基数。
+
+        public class Stack extends Vector
+        Stack的实现非常简单，只有一个构造方法，五个实现方法（从Vector继承而来的方法
+        不算与其中）如下：
+              /**
+               * 构造函数
+               */
+              public Stack() {
+              }
+
+              /**
+               *  push函数：将元素存入栈顶
+               */
+              public E push(E item) {
+                  // 将元素存入栈顶。
+                  // addElement()的实现在Vector.java中
+                  addElement(item);
+
+                  return item;
+              }
+
+              /**
+               * pop函数：返回栈顶元素，并将其从栈中删除
+               */
+              public synchronized E pop() {
+                  E    obj;
+                  int    len = size();
+
+                  obj = peek();
+                  // 删除栈顶元素，removeElementAt()的实现在Vector.java中
+                  removeElementAt(len - 1);
+
+                  return obj;
+              }
+
+              /**
+               * peek函数：返回栈顶元素，不执行删除操作
+               */
+              public synchronized E peek() {
+                  int    len = size();
+
+                  if (len == 0)
+                      throw new EmptyStackException();
+                  // 返回栈顶元素，elementAt()具体实现在Vector.java中
+                  return elementAt(len - 1);
+              }
+
+              /**
+               * 栈是否为空
+               */
+              public boolean empty() {
+                  return size() == 0;
+              }
+
+              /**
+               *  查找“元素o”在栈中的位置：由栈底向栈顶方向数
+               */
+              public synchronized int search(Object o) {
+                  // 获取元素索引，lastIndexOf()具体实现在Vector.java中
+                  int i = lastIndexOf(o);
+
+                  if (i >= 0) {
+                      return size() - i;
+                  }
+                  return -1;
+              }
+
+       Stack继承自Vector，所以也是线程安全的
