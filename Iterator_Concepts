@@ -1,0 +1,129 @@
+# Java_CollectionFramework
+
+Iterator(迭代器)
+
+    可迭代是Java集合框架下的所有集合类的一种共性，也就是把集合中的所有元素遍历一遍。
+迭代的过程需要依赖一个迭代器对象，那么什么是迭代器呢？
+该如何使用？
+           Iterator iterator = list.iterator();
+                   while(iterator.hasNext()){
+                       String string = iterator.next();
+                       //do something
+                   }
+
+
+1、迭代器概述
+         迭代—简单地理解为遍历，是一个标准化遍历各类容器里面的所有对象的方法类，
+     它是一个很典型的设计模式。迭代器(Iterator)模式是用于提供一种方法访问一个容器
+     对象中各个元素，而又不需暴露该对象的内部细节。
+
+        在没有迭代器时我们是这么进行处理的。如下：
+        对于数组我们是使用下标来进行处理的
+             int[] arrays = new int[10];
+                for(int i = 0 ; i  arrays.length ; i++){
+                    int a = arrays[i];
+                    //do something
+                }
+
+        对于ArrayList是这么处理的
+             ListString list = new ArrayListString();
+               for(int i = 0 ; i  list.size() ;  i++){
+                  String string = list.get(i);
+                  //do something
+               }
+
+       上面两种方式的弊端：对于这两种方式，我们都事先知道集合的内部结构，访问代码
+   和集合本身是紧密耦合的，无法将访问逻辑从集合类和客户端代码中分离出来。同时每一种
+   集合对应一种遍历方法，客户端代码无法复用。
+       在实际应用中需要如何将上面将两个集合进行整合是相当麻烦的。所以为了解决以上问题，
+   Iterator模式腾空出世，它总是用同一种逻辑来遍历集合。使得客户端自身不需要来维护集合
+   的内部结构，所有的内部状态都由Iterator来维护。客户端从不直接和集合类打交道，它总是
+   控制Iterator，向它发送向前，向后，取当前元素的命令，就可以间接遍历整个集合。
+   上面只是对Iterator模式进行简单的说明，下面我们看看Java中Iterator接口，看他是如何来进行实现的。
+
+2、java.util.Iterator
+       在Java中Iterator为一个接口，Java所有集合类都是进行迭代的。
+   接口定义：
+        public interface Iterator{
+            boolean hasNext();
+            Object next();
+            void remove();
+        }
+
+   其中：
+        boolean hasNext()：该方法用于判断集合对象是否还有下一个元素，如果已经是最后一个元素，
+                           则返回false。
+        Object next()：获取出下一个元素。
+        void remove()：从迭代器指向的Collection中移除迭代器返回的最后一个元素。
+
+   注意：Iterator只有上面接口中的三个方法，再没有其他的方法了。
+                      所以对于迭代器中的元素只能删，不能加。
+                      而且这里的移除只是针对于迭代器中的元素，而非Iterator所操作
+                      的集合的元素，即就是集合对象不能动。
+
+迭代方法：
+                  iterator()方法——是所操作的集合类的方法
+                                  ——是集合类的引用 . iterator()—>返回的是一个Iterator对象
+         for(Iterator  it = list.iterator(); it.hasNext();){
+                //假如要输出的是String类型
+             String s = (String) it.next();//一条一条的将迭代器对象中的元素读出来
+         }
+——————————————————————————————————————————————————————————————————————————————
+         Iterator  it = 集合引用 . iterator();
+                  while(it.hasNext()){
+                      Object o=it.next();
+                  }
+
+
+使用：
+        注意： Object next() 返回的是一个Object对象,必须强制转换为需要的类型。
+           ArrayList遍历：
+                package Iterator;
+                //利用迭代器进行集合中元素的遍历。
+
+                import java.util.ArrayList;
+                import java.util.Iterator;
+                import java.util.List;
+
+                public class Demo {
+                    public static void main(String[] args) {
+                        List<String> list=new ArrayList<>();
+                        list.add("a");
+                        list.add("b");
+                        Iterator<String> it=list.iterator();//得到一个list的迭代器
+                        while (it.hasNext()){
+                            //将迭代的下标移动一位，并得到当前位置的元素
+                            String s=it.next();
+                            System.out.println(s);
+                        }
+                    }
+                }
+
+                   首先创建了一个List 的集合对象，并放入两个字符串对象元素；
+             然后通过iterator()方法得到迭代器。Iterator()方法正是由Iterable接口所规定的，
+             ArrayList 对该方法提供了具体的实现。
+
+           LinkedList遍历：
+                List<String> link=new LinkedList<String>();
+                link.add("AAA");
+                link.add("BBB");
+                Iterator it=link.iterator();
+                while(it.hasNext()){
+                    String s=(String)it.next(); //it.next()返回的是Object对象
+                    System.out.println(s);
+                }
+
+           HashSet遍历：
+                Set<String> set=new HashSet<String>();
+                set.add("AAA");
+                set.add("BBB");
+                Iterator it=set.iterator();
+                while(it.hasNext()){
+                    String s=(String)it.next(); //it.next()返回的是Object对象
+                    System.out.println(s);
+                }
+
+
+要点：
+          A、Iterator只可单向移动，从第一个元素开始遍历。
+          B、在使用Iterator时，不允许改变它所访问的集合容器的大小，否则将引发异常。
