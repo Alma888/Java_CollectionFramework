@@ -1,0 +1,45 @@
+# Java_CollectionFramework
+
+package Iterator;
+//利用迭代器进行集合中元素的遍历。
+
+import java.util.*;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        //  ArrayList遍历
+        List<String> list=new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        Iterator<String> it=list.iterator();//得到一个list的迭代器
+        while (it.hasNext()){
+            //将迭代的下标移动一位，并得到当前位置的元素
+            String s=it.next();
+            System.out.println(s);
+        }
+
+
+        /* LinkedList遍历
+        List<String> link=new LinkedList<String>();
+        link.add("AAA");
+        link.add("BBB");
+        Iterator it=link.iterator();
+        while(it.hasNext()){
+            String s=(String)it.next(); //it.next()返回的是Object对象
+            System.out.println(s);
+        }
+        */
+
+        /* HashSet 遍历
+        Set<String> set=new HashSet<String>();
+        set.add("AAA");
+        set.add("BBB");
+        Iterator it=set.iterator();
+        while(it.hasNext()){
+            String s=(String)it.next(); //it.next()返回的是Object对象
+            System.out.println(s);
+        }
+        */
+    }
+}
