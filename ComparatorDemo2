@@ -1,0 +1,45 @@
+# Java_CollectionFramework
+
+package Comparable_Comparator;
+
+//利用Comparator接口的实现类 实现排序功能
+
+// 排序例子： 题目描述 输入一个正整数数组，把数组里所有数字拼接起来排成一个数，
+// 打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个
+// 数字能排成的最小数字为321323。
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class ComparatorDemo {
+
+        public String PrintMinNumber(int [] s) {
+            if(s==null) {
+                return null;
+            }
+            String s1="";
+            ArrayList<Integer> list=new ArrayList<Integer>();
+            for(int i=0;i<s.length;i++){
+                list.add(s[i]);
+            }
+            Collections.sort(list,new Comparator<Integer>(){
+                @Override
+                public int compare(Integer str1,Integer str2){
+                    String s1=str1+""+str2;
+                    String s2=str2+""+str1;
+                    return s1.compareTo(s2);
+                }
+            });
+            for(int j:list){
+                s1+=j;
+            }
+            return s1;
+        }
+
+    public static void main(String[] args) {
+        int[] s={3,32,321};
+        System.out.println(new ComparatorDemo().PrintMinNumber(s));
+    }
+}
+
+//运行结果：321323
