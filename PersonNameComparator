@@ -1,0 +1,42 @@
+# Java_CollectionFramework
+
+package Comparable_Comparator;
+////对象的非自然顺序代码举例
+
+import java.util.Comparator;
+
+// 利用Comparator接口的实现类去执行排序功能
+class PersonNameComparator  implements Comparator<Person> {
+    public String name;
+    public int age;
+    public int height;
+    public int weight;
+    public int level;
+    public int gender;
+
+    @Override
+    public int compare(Person o1, Person o2) {
+        return o1.name.compareTo(o2.name);
+    }
+
+    public static void main(String[] args) {
+        Person p=new Person();
+        p.name="James";
+        p.age=18;
+        Person q=new Person();
+        q.name="Tom";
+        q.age=20;
+
+        //构造一个比较器
+        Comparator<Person> comparator=new PersonNameComparator();
+        System.out.println("按照姓名比较");
+        int s=comparator.compare(p,q);
+        if(s<0){
+            System.out.println("p小于q");
+        }else if(s==0){
+            System.out.println("p等于q");
+        }else {
+            System.out.println("p大于q");
+        }
+    }
+}
