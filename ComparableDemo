@@ -1,0 +1,49 @@
+# Java_CollectionFramework
+
+package Comparable_Comparator;
+
+//自然顺序代码举例
+//该类可以和另一个Person类进行比较
+
+public class Person implements Comparable<Person>{
+    public String name;
+    public int age;
+    public int height;
+    public int weight;
+    public int level;
+    public int gender;
+
+    @Override
+    public int compareTo(Person o) {
+        return age-o.age;
+        /*
+        if(age<o.age){
+            return -1;
+        }else if(age==o.age){
+            return 0;
+        }else {
+            return 1;
+        }
+        */
+    }
+
+    public static void main(String[] args) {
+        Person p=new Person();
+        p.name="James";
+        p.age=18;
+        Person q=new Person();
+        q.name="Tom";
+        q.age=20;
+
+        int r=p.compareTo(q);
+        if(r<0){
+            System.out.println("p小于q");
+        }else if(r==0){
+            System.out.println("p等于q");
+        }else {
+            System.out.println("p大于q");
+        }
+    }
+}
+
+//运行结果：p小于q
