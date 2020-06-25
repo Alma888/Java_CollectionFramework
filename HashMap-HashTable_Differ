@@ -1,0 +1,54 @@
+# Java_CollectionFramework
+
+HashMap 和HashTable的异同点
+    HashTable和HashMap存在很多的相同点，但是他们还是有几个比较重要的不同点。
+  不同点：
+第一：我们从他们的定义就可以看出他们的不同，HashTable基于Dictionary类，而HashMap是 基于AbstractMap。Dictionary是什么？它是任何可将键映射到相应值的类的抽象父类，而AbstractMap是基于Map接口的骨干实现，它以最大限度地减少实现此接口所需的工作。
+
+第二：HashMap可以允许存在一个为null的key和任意个为null的value，但是HashTable中的key和value都不允许为null。如下：
+当HashMap遇到为null的key时，它会调用putForNullKey方法来进行处理。对于value没有进行任何处理，只要是对象都可以。
+        if (key == null)
+            return putForNullKey(value);
+
+而当HashTable遇到null时，他会直接抛出NullPointerException异常信息。  
+if (value == null) {
+    throw new NullPointerException();
+}
+
+第三：Hashtable的方法是同步的，而HashMap的方法不是。所以有人一般都建议如果是涉及到多线程同步时采用HashTable，没有涉及就采用HashMap，但是在Collections类中存在一个静态方法：synchronizedMap()，该方法创建了一个线程安全的Map对象，并把它作为一个封装的对象来返回，所以通过Collections类的synchronizedMap方法是我们可以同步访问潜在的HashMap。这样君该如何选择呢？？？
+
+========================================================================================================================================================================================================================================================================================================================================================================
+
+
+面试考点：HashMap和HashTable的区别
+
+线程安全方面：HashMap线程不安全，HashTable是线程安全的。HashMap内部实现没有任何线程同步相关的代码，所以相对而言性能要好一点。如果在多线程中使用HashMap需要自己管理线程同步。HashTable很多对外方法都使用synchronized包裹，所以是线程安全的，但是性能会相对差一些。
+
+二者的父类不一样：HashMap继承自AbstractMap，HashTable继承自Dictionary。它们都实现Map, Cloneable, Serializable这些接口。AbstractMap中提供的基础方法更多，并且实现了多个通用的方法，而在Dictionary抽象类中只有少量的方法，并且都是abstract类型。
+
+key和value的取值范围不同：HashMap的key和value都可以为null，但是HashTable的key和value都不能为null，当HashTable遇到null时，他会直接抛出NullPointerException异常信息。  对于HashMap如果get返回null，并不能表明HashMap不存在这个key，如果需要判断HashMap中是否包含某个key，就需要使用containsKey这个方法来判断。
+
+初始容量不同：HashMap的initialCapacity默认为16，而HashTable的initialCapacity为11，增加的方式是old*2+1。HashMap中初始容量必须是2的幂,如果初始化传入的initialCapacity不是2的幂，将会自动调整为大于初始的initialCapacity最小的2的幂。
+
+hash值的计算方式不同：HashMap计算的hash值 是对key的hashcode进行了二次hash，以获得更好的散列值，然后对table数组长度取模；而HashTable则直接使用key的hashCode方法得到。
+
+有无contains方法：HashMap没有contains方法，而Hashtabl有contains方法。
+//以下是Hashtable的方法
+public synchronized boolean contains(Object value)
+public synchronized boolean containsKey(Object key)
+public boolean containsValue(Object value)
+ 
+//以下是HashMap中的方法，注意，没有contains方法
+public boolean containsKey(Object key)
+public boolean containsValue(Object value)
+
+
+Hashtable、HashMap都使用了 Iterator。而由于历史原因，Hashtable还使用了Enumeration的方式 。
+两者存储规则不一样：
+       HashMap的存储规则:优先使用数组存储, 如果出现Hash冲突, 将在数组的该位置拉伸出链表进行存储(在链表的尾部进行添加), 如果链表的长度大于设定值后, 将链表转为红黑树.
+      HashTable的存储规则:优先使用数组存储, 存储元素时, 先取出下标上的元素(可能为null), 然后添加到数组元素Entry对象的next属性中(在链表的头部进行添加).出现Hash冲突时, 新元素next属性会指向冲突的元素. 如果没有Hash冲突, 则新元素的next属性就是null。
+Entry<K,V> e = (Entry<K,V>) tab[index];
+tab[index] = new Entry<>(hash, key, value, e);
+
+
+
